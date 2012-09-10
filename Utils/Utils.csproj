@@ -1,0 +1,162 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{6BD1FBB0-6CE3-459C-A3B5-EB402CABC0CA}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Utils</RootNamespace>
+    <AssemblyName>Utils</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <ApplicationIcon>
+    </ApplicationIcon>
+    <StartupObject />
+    <RunPostBuildEvent>OnOutputUpdated</RunPostBuildEvent>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>false</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="fasmdll_managed, Version=1.0.3262.20709, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>.\fasmdll_managed.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Windows.Forms.DataVisualization" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase">
+      <Private>True</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Extensions\Collections\Extensions.cs" />
+    <Compile Include="Extensions\IO\Extensions.cs" />
+    <Compile Include="Extensions\Strings\Extensions.cs" />
+    <Compile Include="Extensions\Time\Extensions.cs" />
+    <Compile Include="LogDisplay.xaml.cs">
+      <DependentUpon>LogDisplay.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Memory\BMInject.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Memory\BMMain.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Memory\BMMemory.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Memory\BMPattern.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Memory\BMThread.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Memory\MemoryOperationFailedException.cs" />
+    <Compile Include="Memory\Static Classes\SInject.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Memory\Static Classes\SMemory.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Memory\Static Classes\SPattern.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Memory\Static Classes\SProcess.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Memory\Static Classes\SThread.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Memory\Static Classes\SWindow.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Memory\Static Classes\Win32Imports.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="PriorityQueue.cs" />
+    <Compile Include="ReadyTimer.cs" />
+    <Compile Include="Vector3D.cs" />
+    <Compile Include="XML\SafeRetriever.cs" />
+    <Compile Include="XML\SerializableDictionary.cs" />
+    <Compile Include="XML\XMLSettings.cs" />
+    <Compile Include="Helper.cs" />
+    <Compile Include="Log.cs" />
+    <Compile Include="Tray.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="LogDisplay.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <PropertyGroup>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+</Project>
