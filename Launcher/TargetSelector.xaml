@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="322" d:DesignWidth="600"
              MouseMove="Window_MouseMove" MouseDown="Window_MouseDown"
-        Title="Select an instance of WoW to attach"
+        Title="Select a target process to attach"
         HorizontalAlignment="Center" VerticalAlignment="Center"
         Loaded="Window_Loaded"
         Width="600" Height="350"
@@ -71,10 +71,10 @@
             DockPanel.Dock="Left"
             Name="Listbox_Targets"
             Width="200"
-            ItemsSource="{Binding Wows}"
+            ItemsSource="{Binding Procs}"
             SelectionMode="Single"
             ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-            SelectionChanged="Listbox_Targets_SelectionChanged" SourceUpdated="Listbox_WoWs_SourceUpdated">
+            SelectionChanged="Listbox_Targets_SelectionChanged" SourceUpdated="Listbox_Targets_SourceUpdated">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <TextBlock Text="{Binding PID}" Tag="{Binding DWM}" />

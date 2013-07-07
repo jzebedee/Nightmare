@@ -1,8 +1,13 @@
 ﻿using System;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.IO;
+using Syringe;
+using System.Security.Principal;
+using System.Diagnostics;
 
 namespace Launcher
 {
@@ -13,20 +18,35 @@ namespace Launcher
     {
         private const string
             BootstrapperPath = "NetLoader.dll",
-            InjectedLibPath = "DomainStub.dll";
+            InjectedLibPath = "Bloodstream.dll";
 
         private readonly bool v_series = false;
         private Action<FrameworkElement, int> attachCallback;
+
+        [StructLayout(LayoutKind.Sequential)]
+        struct struct_InjectedLibPath
+        {
+            [CustomMarshalAs(CustomUnmanagedType.LPWStr)]
+            public string path;
+        }
 
         public TargetSelector()
         {
             InitializeComponent();
 
+            var principal = new WindowsPrincipal(WindowsIdentity.GetCurrent());
+            Debug.Assert(principal.IsInRole(WindowsBuiltInRole.Administrator));
+
             attachCallback = (sender, i) =>
             {
                 IsEnabled = false;
 
-                Task.Factory.StartNew(() => Injector.Inject(i, BootstrapperPath, InjectedLibPath));
+                var targetProc = System.Diagnostics.Process.GetProcessById(i);
+                using (var inj = new Injector(targetProc, true))
+                {
+                    inj.InjectLibrary(BootstrapperPath);
+                    inj.CallExport<struct_InjectedLibPath>(BootstrapperPath, "Initialise", new struct_InjectedLibPath { path = Path.GetFullPath(InjectedLibPath) });
+                }
 
                 LoadingPanel.Visibility = System.Windows.Visibility.Visible;
                 Thumbnail_SelectedTarget.Visibility = System.Windows.Visibility.Hidden;
@@ -39,7 +59,7 @@ namespace Launcher
             if (os.Platform == PlatformID.Win32NT && os.Version.Major == 6)
                 v_series = true;// ^ force_nonvseries;
 
-            Listbox_Targets.DataContext = new RunningTargetList();
+            Listbox_Targets.DataContext = new RunningTargetList("Notepad++");
         }
         private void Listbox_Targets_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -79,7 +99,7 @@ namespace Launcher
                 Thumbnail_SelectedTarget.Visibility = System.Windows.Visibility.Hidden;
         }
 
-        private void Listbox_WoWs_SourceUpdated(object sender, System.Windows.Data.DataTransferEventArgs e)
+        private void Listbox_Targets_SourceUpdated(object sender, System.Windows.Data.DataTransferEventArgs e)
         {
             (sender as ListBox).SelectedIndex = -1;
         }

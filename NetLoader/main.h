@@ -5,7 +5,11 @@
 
 #include <Windows.h>
 
+typedef struct _INIT_STRUCT {
+	LPCWSTR Path;
+} INIT_STRUCT, *PINIT_STRUCT;
+
 DWORD WINAPI DllMain(HMODULE, DWORD_PTR, LPVOID);
-extern "C" __declspec(dllexport) DWORD Initialise(LPCWSTR);
+extern "C" __declspec(dllexport) DWORD Initialise(PVOID);
 
 #endif

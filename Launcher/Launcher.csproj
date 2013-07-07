@@ -76,6 +76,24 @@
   <PropertyGroup>
     <StartupObject>Launcher.App</StartupObject>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -96,10 +114,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Injector.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Thumbnail.cs" />
-    <Compile Include="RunningWowList.cs" />
+    <Compile Include="RunningTargetList.cs" />
     <Compile Include="TargetSelector.xaml.cs">
       <DependentUpon>TargetSelector.xaml</DependentUpon>
     </Compile>
@@ -117,17 +134,13 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Bloodstream\Bloodstream.csproj">
-      <Project>{8561A138-5D60-4D98-9C5F-921FF8E56839}</Project>
-      <Name>Bloodstream</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\NetLoader\NetLoader.vcxproj">
-      <Project>{4c866df7-988d-4918-a72c-eda09009bbd4}</Project>
-      <Name>NetLoader</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Utils\Utils.csproj">
       <Project>{6BD1FBB0-6CE3-459C-A3B5-EB402CABC0CA}</Project>
       <Name>Utils</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\_Ignore\Injector\Syringe\Syringe.csproj">
+      <Project>{3e3a04b3-9347-4395-a22a-c49c9b38f83c}</Project>
+      <Name>Syringe</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
