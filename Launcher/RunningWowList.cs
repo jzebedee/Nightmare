@@ -13,16 +13,16 @@ namespace Launcher
     /// </summary>
     /// 
     [Obfuscation]
-    public class RunningWowList : INotifyPropertyChanged
+    public class RunningTargetList : INotifyPropertyChanged
     {
         Timer WowChecker;
-        public RunningWowList(int refreshTime = 5000)
+        public RunningTargetList(int refreshTime = 5000)
         {
-            WowChecker = new Timer(new TimerCallback(obj => Wows = Process.GetProcessesByName("Wow").Select<Process, WoWAttachVisual>((proc) => new WoWAttachVisual(proc.MainWindowHandle, proc.Id)).ToList()), null, 0, refreshTime);
+            WowChecker = new Timer(new TimerCallback(obj => Wows = Process.GetProcessesByName("Wow").Select<Process, AttachVisual>((proc) => new AttachVisual(proc.MainWindowHandle, proc.Id)).ToList()), null, 0, refreshTime);
         }
 
-        List<WoWAttachVisual> WowCheckResults = new List<WoWAttachVisual>();
-        public List<WoWAttachVisual> Wows
+        List<AttachVisual> WowCheckResults = new List<AttachVisual>();
+        public List<AttachVisual> Wows
         {
             get
             {
@@ -41,18 +41,18 @@ namespace Launcher
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public class WoWAttachVisual : IEquatable<WoWAttachVisual>
+        public class AttachVisual : IEquatable<AttachVisual>
         {
             public IntPtr DWM { get; set; }
             public int PID { get; set; }
 
-            public WoWAttachVisual(IntPtr DWM, int PID)
+            public AttachVisual(IntPtr DWM, int PID)
             {
                 this.DWM = DWM;
                 this.PID = PID;
             }
 
-            public bool Equals(WoWAttachVisual other)
+            public bool Equals(AttachVisual other)
             {
                 return other.PID == PID & other.DWM == DWM;
             }

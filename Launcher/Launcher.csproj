@@ -100,15 +100,15 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Thumbnail.cs" />
     <Compile Include="RunningWowList.cs" />
-    <Compile Include="WoWSelector.xaml.cs">
-      <DependentUpon>WoWSelector.xaml</DependentUpon>
+    <Compile Include="TargetSelector.xaml.cs">
+      <DependentUpon>TargetSelector.xaml</DependentUpon>
     </Compile>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="DWM.cs" />
-    <Page Include="WoWSelector.xaml">
+    <Page Include="TargetSelector.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -117,18 +117,13 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="NetLoader.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\Bloodstream\Bloodstream.csproj">
       <Project>{8561A138-5D60-4D98-9C5F-921FF8E56839}</Project>
       <Name>Bloodstream</Name>
     </ProjectReference>
-    <ProjectReference Include="..\DomainStub\DomainStub.csproj">
-      <Project>{CE43457E-3208-48CB-8D2B-CF05BA475762}</Project>
-      <Name>DomainStub</Name>
+    <ProjectReference Include="..\NetLoader\NetLoader.vcxproj">
+      <Project>{4c866df7-988d-4918-a72c-eda09009bbd4}</Project>
+      <Name>NetLoader</Name>
     </ProjectReference>
     <ProjectReference Include="..\Utils\Utils.csproj">
       <Project>{6BD1FBB0-6CE3-459C-A3B5-EB402CABC0CA}</Project>

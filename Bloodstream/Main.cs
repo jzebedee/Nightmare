@@ -8,15 +8,20 @@ namespace Bloodstream
 {
     static class EntryPoint
     {
+        const int
+            SUCCESS = 0,
+            FAIL_UNKNOWN = -1,
+            FAIL_ALREADY_RUNNING = -2;
+
         static Mutex SingleInstanceMutex = new Mutex(true);
-        static void Main()
+        static int Main(string argument)
         {
             try
             {
                 if (!SingleInstanceMutex.WaitOne(0))
                 {
                     MessageBox.Show("There is already an instance of {0} running in this WoW.", Helper.ProductName);
-                    return;
+                    return FAIL_ALREADY_RUNNING;
                 }
 
                 var UIThread = new Thread(new ThreadStart(() =>
@@ -47,6 +52,8 @@ namespace Bloodstream
                 SingleInstanceMutex.ReleaseMutex();
                 SingleInstanceMutex.Dispose();
             }
+
+            return SUCCESS;
         }
     }
 }
