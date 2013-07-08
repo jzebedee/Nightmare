@@ -8,8 +8,8 @@ using System.Windows;
 using Bloodstream.Lib.Memory;
 using Bloodstream.Patchables;
 using Microsoft.Win32;
-using Utils;
-using AccessRights = Utils.Memory.AccessRights;
+//using Utils;
+//using AccessRights = Utils.Memory.AccessRights;
 
 namespace Bloodstream.Lib.Injection
 {
@@ -85,7 +85,7 @@ namespace Bloodstream.Lib.Injection
         {
             if (AppDomain.CurrentDomain.IsDefaultAppDomain())
             {
-                MessageBox.Show(string.Format("{0} may not be started directly. Please use the launcher.", Helper.ProductName));
+                //MessageBox.Show(string.Format("{0} may not be started directly. Please use the launcher.", Helper.ProductName));
                 return;
             }
 
@@ -93,7 +93,7 @@ namespace Bloodstream.Lib.Injection
             {
                 try
                 {
-                    SMemory.ProcHandle = Invokes.OpenProcess(AccessRights.PROCESS_VM_WRITE | AccessRights.PROCESS_VM_READ | AccessRights.PROCESS_VM_OPERATION, true, CurrentProcessID);
+                    //SMemory.ProcHandle = Invokes.OpenProcess(AccessRights.PROCESS_VM_WRITE | AccessRights.PROCESS_VM_READ | AccessRights.PROCESS_VM_OPERATION, true, CurrentProcessID);
                 }
                 catch (System.ComponentModel.Win32Exception we)
                 {
@@ -101,20 +101,20 @@ namespace Bloodstream.Lib.Injection
                     if (we.NativeErrorCode != 1300)
                         throw;
 
-                    var res = MessageBox.Show(string.Format("{0} does not have the necessary privileges to run. Would you like to restart WoW as administrator?", Helper.ProductName), "Invalid Permissions", MessageBoxButton.YesNo);
-                    switch (res)
-                    {
-                        case MessageBoxResult.Yes:
-                            var currentStartInfo = Process.GetCurrentProcess().StartInfo;
-                            currentStartInfo.Verb = "runas";
-                            currentStartInfo.FileName = Process.GetCurrentProcess().MainModule.FileName;
-                            Process.Start(currentStartInfo);
+                    //var res = MessageBox.Show(string.Format("{0} does not have the necessary privileges to run. Would you like to restart WoW as administrator?", Helper.ProductName), "Invalid Permissions", MessageBoxButton.YesNo);
+                    //switch (res)
+                    //{
+                    //    case MessageBoxResult.Yes:
+                    //        var currentStartInfo = Process.GetCurrentProcess().StartInfo;
+                    //        currentStartInfo.Verb = "runas";
+                    //        currentStartInfo.FileName = Process.GetCurrentProcess().MainModule.FileName;
+                    //        Process.Start(currentStartInfo);
 
-                            Environment.Exit(1);
-                            return;
-                        default:
-                            return;
-                    }
+                    //        Environment.Exit(1);
+                    //        return;
+                    //    default:
+                    //        return;
+                    //}
                 }
 
                 var EndSceneInit = new ScheduledActionPulse(() => InMainThread = true);
@@ -140,14 +140,14 @@ namespace Bloodstream.Lib.Injection
                     Bridge.Initialize();
                     using (Wow = new WowBase(Bridge))
                     {
-                        Bridge.Show("{0} has connected", Helper.ProductName);
+                        //Bridge.Show("{0} has connected", Helper.ProductName);
 
                         KillParent();
 
                         observing.Start();
                         observing.Join();
 
-                        Bridge.Show("{0} has disconnected", Helper.ProductName);
+                        //Bridge.Show("{0} has disconnected", Helper.ProductName);
 
                         pulseFunctions.CompleteAdding();
                         while (!pulseFunctions.IsCompleted) //finish up any remaining PulseFunctions
@@ -201,7 +201,7 @@ namespace Bloodstream.Lib.Injection
                 }
                 catch (Exception e)
                 {
-                    Log.Debug(e);
+                    //Log.Debug(e);
                 }
             }
             else
@@ -222,7 +222,7 @@ namespace Bloodstream.Lib.Injection
                 }
                 catch (Exception e)
                 {
-                    Log.Debug(e);
+                    //Log.Debug(e);
                 }
             }
             else
@@ -286,7 +286,7 @@ namespace Bloodstream.Lib.Injection
                 }
                 catch (Exception e)
                 {
-                    Log.Debug(e);
+                    //Log.Debug(e);
                 }
             }
 

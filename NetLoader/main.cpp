@@ -13,7 +13,10 @@ extern "C" __declspec(dllexport) DWORD Initialise(PVOID instruct) {
 	runtimeLoader* rl = new runtimeLoader();
 	DWORD res = rl->LoadCore(pstruct->Path);
 
-	::MessageBox(NULL, pstruct->Path, L"Leaving Initialise", MB_OK);
+	wchar_t bRes[64];
+	wsprintf(bRes, L"%d", res);
+
+	::MessageBox(NULL, bRes, L"Leaving Initialise", MB_OK);
 
 	return res;
 }

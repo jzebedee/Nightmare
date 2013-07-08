@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Threading;
 using System.Windows;
-using Bloodstream.Lib.Injection;
-using Utils;
+//using Utils;
 
 namespace Bloodstream
 {
-    static class EntryPoint
+    public static class EntryPoint
     {
         const int
             SUCCESS = 0,
@@ -14,13 +13,24 @@ namespace Bloodstream
             FAIL_ALREADY_RUNNING = -2;
 
         static Mutex SingleInstanceMutex = new Mutex(true);
-        static int Main(string argument)
+
+        public static int Main(string argument)
         {
+            try
+            {
+                MessageBox.Show("Hello, from within!");
+                return 1;
+            }
+            catch
+            {
+                return -1;
+            }
+
             try
             {
                 if (!SingleInstanceMutex.WaitOne(0))
                 {
-                    MessageBox.Show("There is already an instance of {0} running in this WoW.", Helper.ProductName);
+                    //MessageBox.Show("There is already an instance of {0} running in this WoW.", Helper.ProductName);
                     return FAIL_ALREADY_RUNNING;
                 }
 
@@ -31,21 +41,24 @@ namespace Bloodstream
                         var app = new App();
                         app.DispatcherUnhandledException += (sender, e) =>
                         {
-                            Log.Debug(e.Exception);
+                            //Log.Debug(e.Exception);
                             e.Handled = true;
                         };
                         app.Run(new MainWindow());
                     }
                     catch (Exception e)
                     {
-                        Log.Debug(e, false);
-                        MessageBox.Show(string.Format("Unrecoverable failure. {0} will now close.", Helper.ProductName));
+                        //Log.Debug(e, false);
+                        //MessageBox.Show(string.Format("Unrecoverable failure. {0} will now close.", Helper.ProductName));
                     }
                 }));
                 UIThread.SetApartmentState(ApartmentState.STA);
 
-                using (var core = new Core())
-                    core.RunLifetime(UIThread);
+                //var timer = new ReadyTimer(30000);
+                //while (!timer.Ready)
+                Thread.Sleep(5000);
+                //using (var core = new Core())
+                //    core.RunLifetime(UIThread);
             }
             finally
             {

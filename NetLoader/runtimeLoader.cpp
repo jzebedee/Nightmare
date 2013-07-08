@@ -41,6 +41,7 @@ DWORD WINAPI runtimeLoader::LoadCore(LPCWSTR path)
 				WCHAR szCurrentRuntimeVersion[MAX_PATH];
 				DWORD cch = ARRAYSIZE(szCurrentRuntimeVersion);
 				hr = pRuntimeInfo->GetVersionString(szCurrentRuntimeVersion, &cch);
+				::MessageBox(NULL, szCurrentRuntimeVersion, L"Current runtime check", MB_OK);
 				if (SUCCEEDED(hr))
 				{
 					if (wcsncmp(szLatestRuntimeVersion, szCurrentRuntimeVersion, cch) < 0)
@@ -63,6 +64,11 @@ DWORD WINAPI runtimeLoader::LoadCore(LPCWSTR path)
 
 	if (!pRuntimeInfo) return -3;
 
+	wchar_t bRes[64];
+	DWORD x;
+	pRuntimeInfo->GetVersionString(bRes, &x);
+	::MessageBox(NULL, bRes, L"pRuntimeInfo version", MB_OK);
+
 	hr = pRuntimeInfo->GetInterface(CLSID_CLRRuntimeHost, IID_ICLRRuntimeHost, (LPVOID*) &pRuntimeHost);// Load the CLR.
 	if (FAILED(hr)) return -4;
 
@@ -71,7 +77,21 @@ DWORD WINAPI runtimeLoader::LoadCore(LPCWSTR path)
 
 	DWORD dwRetCode = 0;
 	hr = pRuntimeHost->ExecuteInDefaultAppDomain(path, L"Bloodstream.EntryPoint", L"Main", path, &dwRetCode);
-	if (FAILED(hr)) return -6;
+
+	if (SUCCEEDED(hr)) {
+		wchar_t bRes[64];
+		wsprintf(bRes, L"%d", dwRetCode);
+
+		::MessageBox(NULL, bRes, L"dwRetCode", MB_OK);
+	}
+	else if (FAILED(hr)) {
+		wchar_t bRes[64];
+		wsprintf(bRes, L"%X", hr);
+
+		::MessageBox(NULL, bRes, L"HRESULT == HOST_E_CLRNOTAVAILABLE", MB_OK);
+
+		return -6;
+	}
 
 	//hr = pRuntimeHost->UnloadAppDomain(dwRetCode, true);
 	//if (FAILED(hr)) return -7;
@@ -83,7 +103,7 @@ DWORD WINAPI runtimeLoader::LoadCore(LPCWSTR path)
 
 runtimeLoader::~runtimeLoader()
 {
-	pRuntimeHost->Release();
-	pRuntimeInfo->Release();
 	pMetaHost->Release();
+	pRuntimeInfo->Release();
+	pRuntimeHost->Release();
 }

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 using Bloodstream.Patchables;
-using Utils;
 
 namespace Bloodstream.Lib.Injection
 {

@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace Bloodstream.Lib.Injection
+namespace Bloodstream
 {
     public class App : Application
     {

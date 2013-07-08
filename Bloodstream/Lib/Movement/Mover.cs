@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading;
 using Bloodstream.Interfaces;
 using Bloodstream.Patchables;
-using Utils;
 
 namespace Bloodstream.Lib.Movement
 {

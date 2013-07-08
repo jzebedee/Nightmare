@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using Bloodstream.Interfaces;
-using Bloodstream.Lib.Spells;
 using Bloodstream.Patchables;
 
 namespace Bloodstream.Lib

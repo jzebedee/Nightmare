@@ -2,7 +2,6 @@
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using Bloodstream.Interfaces;
-using Utils;
 
 namespace Bloodstream.Lib
 {
