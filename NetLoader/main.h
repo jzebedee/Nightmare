@@ -4,6 +4,8 @@
 #define _MAIN_H
 
 #include <Windows.h>
+#include "debug.h"
+#include "runtimeLoader.h"
 
 typedef struct _INIT_STRUCT {
 	LPCWSTR Path;

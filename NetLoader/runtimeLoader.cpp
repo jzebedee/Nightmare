@@ -1,5 +1,4 @@
 #include "runtimeLoader.h"
-#pragma comment(lib,"MSCorEE.lib") 
 
 runtimeLoader::runtimeLoader()
 {
@@ -72,12 +71,47 @@ DWORD WINAPI runtimeLoader::LoadCore(LPCWSTR path)
 	if (FAILED(hr)) return -4;
 
 	hr = pRuntimeHost->Start();
-	if (FAILED(hr)) return -5;
+	if (FAILED(hr))
+#ifdef DEBUG
+	{
+		LPCWSTR msg;
+
+		switch (hr) {
+		case S_OK:
+			msg = L"S_OK";
+			break;
+		case HOST_E_CLRNOTAVAILABLE:
+			msg = L"HOST_E_CLRNOTAVAILABLE";
+			break;
+		case HOST_E_TIMEOUT:
+			msg = L"HOST_E_TIMEOUT";
+			break;
+		case HOST_E_NOT_OWNER:
+			msg = L"HOST_E_NOT_OWNER";
+			break;
+		case HOST_E_ABANDONED:
+			msg = L"HOST_E_ABANDONED";
+			break;
+		case E_FAIL:
+			msg = L"E_FAIL";
+			break;
+		default:
+			msg = L"Unknown";
+			break;
+		}
+
+		::MessageBox(NULL, msg, L"pRuntimeHost->Start HResult", MB_OK);
+
+#endif
+		return -5;
+#ifdef DEBUG
+	}
+#endif
 
 	DWORD dwRetCode = 0;
 	hr = pRuntimeHost->ExecuteInDefaultAppDomain(path, L"Bloodstream.EntryPoint", L"Main", path, &dwRetCode);
 
-#if DEBUG
+#ifdef DEBUG
 	if (SUCCEEDED(hr)) {
 		wchar_t bRes[64];
 		wsprintf(bRes, L"%d", dwRetCode);
@@ -87,11 +121,40 @@ DWORD WINAPI runtimeLoader::LoadCore(LPCWSTR path)
 	else
 #endif // DEBUG
 		if (FAILED(hr)) {
-#if DEBUG
+#ifdef DEBUG
 			wchar_t bRes[64];
 			wsprintf(bRes, L"%X", hr);
 
 			::MessageBox(NULL, bRes, L"HRESULT", MB_OK);
+
+			LPCWSTR msg;
+
+			switch (hr) {
+			case S_OK:
+				msg = L"S_OK";
+				break;
+			case HOST_E_CLRNOTAVAILABLE:
+				msg = L"HOST_E_CLRNOTAVAILABLE";
+				break;
+			case HOST_E_TIMEOUT:
+				msg = L"HOST_E_TIMEOUT";
+				break;
+			case HOST_E_NOT_OWNER:
+				msg = L"HOST_E_NOT_OWNER";
+				break;
+			case HOST_E_ABANDONED:
+				msg = L"HOST_E_ABANDONED";
+				break;
+			case E_FAIL:
+				msg = L"E_FAIL";
+				break;
+			default:
+				msg = L"Unknown";
+				break;
+			}
+
+			::MessageBox(NULL, msg, L"HResult Message", MB_OK);
+
 
 #endif // DEBUG
 

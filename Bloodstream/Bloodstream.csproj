@@ -79,7 +79,7 @@
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\x86\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
     <DebugType>full</DebugType>
     <PlatformTarget>x86</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
@@ -118,16 +118,10 @@
     <Compile Include="App.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Lib\Injection\Bridge.cs" />
-    <Compile Include="Lib\Injection\Core.cs" />
-    <Compile Include="Lib\Injection\Delegates.cs" />
-    <Compile Include="Lib\Injection\Functions.cs" />
-    <Compile Include="Lib\Injection\Hooker.cs" />
-    <Compile Include="Lib\Injection\Invokes.cs" />
-    <Compile Include="Lib\Injection\Lua.cs" />
-    <Compile Include="Lib\Injection\ScheduledPulse.cs" />
-    <Compile Include="Lib\Interop\WoWBase.cs" />
-    <Compile Include="Lib\Interop\WowBaseInteraction.cs" />
+    <None Include="Lib\Injection\Core.cs" />
+    <None Include="Lib\Injection\Functions.cs" />
+    <None Include="Lib\Injection\Invokes.cs" />
+    <None Include="Lib\Injection\ScheduledPulse.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
@@ -161,12 +155,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Utils\Utils.csproj">
-      <Project>{6bd1fbb0-6ce3-459c-a3b5-eb402cabc0ca}</Project>
-      <Name>Utils</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -5,8 +5,6 @@ using System.Runtime.ConstrainedExecution;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Windows;
-using Bloodstream.Lib.Memory;
-using Bloodstream.Patchables;
 using Microsoft.Win32;
 //using Utils;
 //using AccessRights = Utils.Memory.AccessRights;
@@ -77,18 +75,8 @@ namespace Bloodstream.Lib.Injection
             return "";
         }
 
-        static Bridge Bridge;
-        static EndSceneDelegate origEndScene, hookEndScene;
-        static Hooker endSceneHook;
-
         public void RunLifetime(Thread observing)
         {
-            if (AppDomain.CurrentDomain.IsDefaultAppDomain())
-            {
-                //MessageBox.Show(string.Format("{0} may not be started directly. Please use the launcher.", Helper.ProductName));
-                return;
-            }
-
             try
             {
                 try

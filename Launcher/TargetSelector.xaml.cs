@@ -18,7 +18,10 @@ namespace Launcher
     {
         private const string
             BootstrapperPath = "NetLoader.dll",
-            InjectedLibPath = "Bloodstream.dll";
+            InjectedLibPath = "Bloodstream.dll",
+            //TargetString = "Notepad++"
+            TargetString = "Borderlands2"
+            ;
 
         private readonly bool v_series = false;
         private Action<FrameworkElement, int> attachCallback;
@@ -59,7 +62,7 @@ namespace Launcher
             if (os.Platform == PlatformID.Win32NT && os.Version.Major == 6)
                 v_series = true;// ^ force_nonvseries;
 
-            Listbox_Targets.DataContext = new RunningTargetList("Notepad++");
+            Listbox_Targets.DataContext = new RunningTargetList(TargetString);
         }
         private void Listbox_Targets_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
