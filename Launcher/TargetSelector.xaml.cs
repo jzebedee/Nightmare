@@ -54,16 +54,16 @@ namespace Launcher
                 var targetProc = System.Diagnostics.Process.GetProcessById(i);
                 using (var inj = new Injector(targetProc, true))
                 {
-                    var nli = new NetLoaderInitializer
-                    {
-                        AssemblyPath = Path.GetFullPath(InjectedLibPath),
-                        ClassName = "Bloodstream.EntryPoint",
-                        MethodName = "Main",
-                        Argument = "testtesttest",
-                    };
+                    //var nli = new NetLoaderInitializer
+                    //{
+                    //    AssemblyPath = Path.GetFullPath(InjectedLibPath),
+                    //    ClassName = "Bloodstream.EntryPoint",
+                    //    MethodName = "Main",
+                    //    Argument = "testtesttest",
+                    //};
 
-                    inj.InjectLibrary(BootstrapperPath);
-                    inj.CallExport<NetLoaderInitializer>(BootstrapperPath, "InitialiseV4", nli);
+                    inj.InjectLibrary(InjectedLibPath);
+                    inj.CallExport(InjectedLibPath, "Main");
                 }
 
                 LoadingPanel.Visibility = System.Windows.Visibility.Visible;

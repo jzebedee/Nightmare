@@ -11,8 +11,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Launcher", "Launcher\Launcher.csproj", "{EB8EAC91-3827-4689-85F0-A0B7EA8A0666}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "NetLoader", "NetLoader\NetLoader.vcxproj", "{4C866DF7-988D-4918-A72C-EDA09009BBD4}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Syringe", "_Ignore\Injector\Syringe\Syringe.csproj", "{3E3A04B3-9347-4395-A22A-C49C9B38F83C}"
 EndProject
 Global
@@ -68,21 +66,6 @@ Global
 		{EB8EAC91-3827-4689-85F0-A0B7EA8A0666}.Release|Win32.ActiveCfg = Release|x86
 		{EB8EAC91-3827-4689-85F0-A0B7EA8A0666}.Release|x86.ActiveCfg = Release|x86
 		{EB8EAC91-3827-4689-85F0-A0B7EA8A0666}.Release|x86.Build.0 = Release|x86
-		{4C866DF7-988D-4918-A72C-EDA09009BBD4}.Debug|Any CPU.ActiveCfg = Debug|Win32
-		{4C866DF7-988D-4918-A72C-EDA09009BBD4}.Debug|Any CPU.Build.0 = Debug|Win32
-		{4C866DF7-988D-4918-A72C-EDA09009BBD4}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
-		{4C866DF7-988D-4918-A72C-EDA09009BBD4}.Debug|Mixed Platforms.Build.0 = Debug|Win32
-		{4C866DF7-988D-4918-A72C-EDA09009BBD4}.Debug|Win32.ActiveCfg = Debug|Win32
-		{4C866DF7-988D-4918-A72C-EDA09009BBD4}.Debug|Win32.Build.0 = Debug|Win32
-		{4C866DF7-988D-4918-A72C-EDA09009BBD4}.Debug|x86.ActiveCfg = Debug|Win32
-		{4C866DF7-988D-4918-A72C-EDA09009BBD4}.Debug|x86.Build.0 = Debug|Win32
-		{4C866DF7-988D-4918-A72C-EDA09009BBD4}.Release|Any CPU.ActiveCfg = Release|Win32
-		{4C866DF7-988D-4918-A72C-EDA09009BBD4}.Release|Mixed Platforms.ActiveCfg = Release|Win32
-		{4C866DF7-988D-4918-A72C-EDA09009BBD4}.Release|Mixed Platforms.Build.0 = Release|Win32
-		{4C866DF7-988D-4918-A72C-EDA09009BBD4}.Release|Win32.ActiveCfg = Release|Win32
-		{4C866DF7-988D-4918-A72C-EDA09009BBD4}.Release|Win32.Build.0 = Release|Win32
-		{4C866DF7-988D-4918-A72C-EDA09009BBD4}.Release|x86.ActiveCfg = Release|Win32
-		{4C866DF7-988D-4918-A72C-EDA09009BBD4}.Release|x86.Build.0 = Release|Win32
 		{3E3A04B3-9347-4395-A22A-C49C9B38F83C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{3E3A04B3-9347-4395-A22A-C49C9B38F83C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3E3A04B3-9347-4395-A22A-C49C9B38F83C}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
