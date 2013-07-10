@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Threading;
 using System.Windows;
+using System.Runtime.InteropServices;
+using RGiesecke.DllExport;
 //using Utils;
 
 namespace Bloodstream
@@ -14,11 +16,12 @@ namespace Bloodstream
 
         static Mutex SingleInstanceMutex = new Mutex(true);
 
+        [DllExport("Main", CallingConvention = CallingConvention.Cdecl)]
         public static int Main(string argument)
         {
             try
             {
-                MessageBox.Show("Hello, from within!");
+                MessageBox.Show("Hello, from within!", argument);
                 return 1;
             }
             catch
@@ -63,7 +66,7 @@ namespace Bloodstream
             finally
             {
                 SingleInstanceMutex.ReleaseMutex();
-                SingleInstanceMutex.Dispose();
+                //SingleInstanceMutex.Dispose();
             }
 
             return SUCCESS;

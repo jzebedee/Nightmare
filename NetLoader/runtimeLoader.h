@@ -2,7 +2,7 @@
 
 #include <metahost.h>
 #include <CorError.h>
-#include "debug.h"
+#include "main.h"
 
 #pragma comment(lib,"MSCorEE.lib") 
 
@@ -13,11 +13,9 @@ private:
 	ICLRRuntimeInfo* pRuntimeInfo;
 	ICLRRuntimeHost* pRuntimeHost;
 
-	HMODULE lpParam;
-
 public:
 	runtimeLoader();
-	DWORD WINAPI LoadCore(LPCWSTR);
+	DWORD WINAPI LoadCore(PVOID);
 	~runtimeLoader();
 };
 

@@ -4,8 +4,10 @@ runtimeLoader::runtimeLoader()
 {
 }
 
-DWORD WINAPI runtimeLoader::LoadCore(LPCWSTR path)
+DWORD WINAPI runtimeLoader::LoadCore(PVOID invoid)
 {
+	PINIT_STRUCT instruct = reinterpret_cast<PINIT_STRUCT>(invoid);
+
 	HRESULT hr;
 
 	hr = CLRCreateInstance(CLSID_CLRMetaHost, IID_ICLRMetaHost, (LPVOID*) &pMetaHost);
@@ -58,9 +60,9 @@ DWORD WINAPI runtimeLoader::LoadCore(LPCWSTR path)
 		punkRuntime->Release();
 	}
 	peunkRuntimes->Release();
-	////////////////////////////
 
-	if (!pRuntimeInfo) return -3;
+	if (!pRuntimeInfo)
+		return -3;
 
 	//wchar_t bRes[64];
 	//DWORD x;
@@ -109,7 +111,7 @@ DWORD WINAPI runtimeLoader::LoadCore(LPCWSTR path)
 #endif
 
 	DWORD dwRetCode = 0;
-	hr = pRuntimeHost->ExecuteInDefaultAppDomain(path, L"Bloodstream.EntryPoint", L"Main", path, &dwRetCode);
+	hr = pRuntimeHost->ExecuteInDefaultAppDomain(instruct->AssemblyPath, instruct->ClassName, instruct->MethodName, instruct->Argument, &dwRetCode);
 
 #ifdef DEBUG
 	if (SUCCEEDED(hr)) {

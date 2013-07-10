@@ -18,19 +18,26 @@ namespace Launcher
     {
         private const string
             BootstrapperPath = "NetLoader.dll",
-            InjectedLibPath = "Bloodstream.dll",
-            //TargetString = "Notepad++"
-            TargetString = "Borderlands2"
+            //InjectedLibPath = "Bloodstream.dll",
+            InjectedLibPath = "Bitchstream.dll",
+            TargetString = "Notepad++"
+            //TargetString = "Borderlands2"
             ;
 
         private readonly bool v_series = false;
         private Action<FrameworkElement, int> attachCallback;
 
         [StructLayout(LayoutKind.Sequential)]
-        struct struct_InjectedLibPath
+        struct NetLoaderInitializer
         {
             [CustomMarshalAs(CustomUnmanagedType.LPWStr)]
-            public string path;
+            public string AssemblyPath;
+            [CustomMarshalAs(CustomUnmanagedType.LPWStr)]
+            public string ClassName;
+            [CustomMarshalAs(CustomUnmanagedType.LPWStr)]
+            public string MethodName;
+            [CustomMarshalAs(CustomUnmanagedType.LPWStr)]
+            public string Argument;
         }
 
         public TargetSelector()
@@ -47,8 +54,16 @@ namespace Launcher
                 var targetProc = System.Diagnostics.Process.GetProcessById(i);
                 using (var inj = new Injector(targetProc, true))
                 {
+                    var nli = new NetLoaderInitializer
+                    {
+                        AssemblyPath = Path.GetFullPath(InjectedLibPath),
+                        ClassName = "Bloodstream.EntryPoint",
+                        MethodName = "Main",
+                        Argument = "testtesttest",
+                    };
+
                     inj.InjectLibrary(BootstrapperPath);
-                    inj.CallExport<struct_InjectedLibPath>(BootstrapperPath, "Initialise", new struct_InjectedLibPath { path = Path.GetFullPath(InjectedLibPath) });
+                    inj.CallExport<NetLoaderInitializer>(BootstrapperPath, "InitialiseV4", nli);
                 }
 
                 LoadingPanel.Visibility = System.Windows.Visibility.Visible;

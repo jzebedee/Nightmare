@@ -84,10 +84,12 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="bitchLoader.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="runtimeLoader.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="bitchLoader.h" />
     <ClInclude Include="debug.h" />
     <ClInclude Include="main.h" />
     <ClInclude Include="runtimeLoader.h" />
