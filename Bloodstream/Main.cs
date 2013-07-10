@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 using RGiesecke.DllExport;
 //using Utils;
 
-namespace Bitchstream
+namespace Bloodstream
 {
     public static class EntryPoint
     {
@@ -15,6 +15,15 @@ namespace Bitchstream
             try
             {
                 MessageBox.Show("Hello, from within!");
+                //var t = new Utils.ReadyTimer(5000);
+                //while (!t.Ready)
+                //{
+                //    Thread.Sleep(100);
+                //}
+                //if (t.Ready)
+                //{
+                //    MessageBox.Show("Ready and waiting!");
+                //}
                 return 1;
             }
             catch

@@ -1,19 +1,18 @@
 ﻿using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Bloodstream")]
+[assembly: AssemblyTitle("DomainWrapper")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Scorpioworks")]
-[assembly: AssemblyProduct("Bloodstream")]
-[assembly: AssemblyCopyright("Copyright © Scorpioworks 2011")]
+[assembly: AssemblyCompany("")]
+[assembly: AssemblyProduct("DomainWrapper")]
+[assembly: AssemblyCopyright("Copyright ©  2013")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
-
-//[assembly: ObfuscateAssembly(true)]
 
 // Setting ComVisible to false makes the types in this assembly not visible 
 // to COM components.  If you need to access a type in this assembly from 
@@ -21,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("3cc0d813-82f8-4b99-887f-746bd06c7f40")]
+[assembly: Guid("953d8acf-cec5-4bc4-a313-50f51967b2c5")]
 
 // Version information for an assembly consists of the following four values:
 //
