@@ -32,18 +32,6 @@ namespace Bloodstream.Lib.Injection
 
         }
 
-        static WowBase Wow
-        {
-            get
-            {
-                return WowBase.Instance;
-            }
-            set
-            {
-                WowBase.Instance = value;
-            }
-        }
-
         static readonly int CurrentProcessID = Process.GetCurrentProcess().Id;
 
         /// <summary>
@@ -189,7 +177,7 @@ namespace Bloodstream.Lib.Injection
                 }
                 catch (Exception e)
                 {
-                    //Log.Debug(e);
+                    Trace.TraceError(e.ToString());
                 }
             }
             else
@@ -210,7 +198,7 @@ namespace Bloodstream.Lib.Injection
                 }
                 catch (Exception e)
                 {
-                    //Log.Debug(e);
+                    Trace.TraceError(e.ToString());
                 }
             }
             else

@@ -142,6 +142,10 @@
       <Project>{8561a138-5d60-4d98-9c5f-921ff8e56839}</Project>
       <Name>Bloodstream</Name>
     </ProjectReference>
+    <ProjectReference Include="..\DomainWrapper\DomainWrapper.csproj">
+      <Project>{ca49e5b4-af6a-4795-8dec-d341673c3c5e}</Project>
+      <Name>DomainWrapper</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Utils\Utils.csproj">
       <Project>{6BD1FBB0-6CE3-459C-A3B5-EB402CABC0CA}</Project>
       <Name>Utils</Name>

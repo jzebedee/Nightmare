@@ -53,21 +53,23 @@ namespace Syringe
                 foreach (object attribute in field.GetCustomAttributes(typeof(CustomMarshalAttribute), true))
                 {
                     int size = 0;
+
                     CustomMarshalAsAttribute attr = (CustomMarshalAsAttribute)attribute;
+                    string val = (string)field.GetValue(o);
+
                     switch (attr.Value)
                     {
                         case CustomUnmanagedType.LPStr:
-                            string val = (string)field.GetValue(o) + '\0';
                             size = Encoding.ASCII.GetByteCount(val);
                             break;
                         case CustomUnmanagedType.LPWStr:
-                            val = (string)field.GetValue(o) + '\0';
                             size = Encoding.Unicode.GetByteCount(val);
                             break;
                         default:
                             throw new NotSupportedException("Operation not yet supported by CustomMarshaller");
                     }
-                    objectSize += size;
+
+                    objectSize += size + 1;
                 }
             }
             return objectSize;
@@ -110,14 +112,13 @@ namespace Syringe
                 {
                     byte[] bytes;
                     CustomMarshalAsAttribute attr = (CustomMarshalAsAttribute)(field.GetCustomAttributes(typeof(CustomMarshalAsAttribute), true)[0]);
+                    string val = (string)field.GetValue(structure);
                     switch (attr.Value)
                     {
                         case CustomUnmanagedType.LPStr:
-                            string val = (string)field.GetValue(structure) + '\0';
                             bytes = Encoding.ASCII.GetBytes(val);
                             break;
                         case CustomUnmanagedType.LPWStr:
-                            val = (string)field.GetValue(structure) + '\0';
                             bytes = Encoding.Unicode.GetBytes(val);
                             break;
                         default:
@@ -126,9 +127,14 @@ namespace Syringe
                     uint dataLoc = structBase + structSize + extraDataOffset;
                     Marshal.WriteIntPtr(new IntPtr(fieldLoc), new IntPtr(dataLoc));
                     // write the raw bytes to dataLoc
-                    for (int i = 0; i < bytes.Length; i++, extraDataOffset++)
+                    for (uint i = 0; i <= bytes.Length; i++, extraDataOffset++)
                     {
-                        Marshal.WriteByte(new IntPtr(dataLoc + (uint)i), bytes[i]);
+                        byte payload;
+                        if (i == bytes.Length)
+                            payload = (byte)'\0';
+                        else
+                            payload = bytes[i];
+                        Marshal.WriteByte(new IntPtr(dataLoc + i), payload);
                     }
                 }
                 else

@@ -17,15 +17,20 @@ namespace Launcher
     public partial class TargetSelector : Window
     {
         private const string
-            BootstrapperPath = "NetLoader.dll",
-            //InjectedLibPath = "Bloodstream.dll",
-            InjectedLibPath = "Bloodstream.dll",
-            //TargetString = "Notepad++"
-            TargetString = "Borderlands2"
+            InjectedLibPath = "DomainWrapper.dll",
+            TargetString = "Notepad++"
+            //TargetString = "Borderlands2"
             ;
 
         private readonly bool v_series = false;
         private Action<FrameworkElement, int> attachCallback;
+
+        [StructLayout(LayoutKind.Sequential)]
+        public struct TransferPathStruct
+        {
+            [CustomMarshalAs(CustomUnmanagedType.LPWStr)]
+            public string path;
+        }
 
         public TargetSelector()
         {
@@ -41,8 +46,13 @@ namespace Launcher
                 var targetProc = System.Diagnostics.Process.GetProcessById(i);
                 using (var inj = new Injector(targetProc, true))
                 {
+                    var tps = new TransferPathStruct
+                    {
+                        path = Path.GetDirectoryName(Path.GetFullPath(InjectedLibPath))
+                    };
+
                     inj.InjectLibrary(InjectedLibPath);
-                    inj.CallExport(InjectedLibPath, "Main");
+                    inj.CallExport<TransferPathStruct>(InjectedLibPath, "Start", tps);
                 }
 
                 LoadingPanel.Visibility = System.Windows.Visibility.Visible;

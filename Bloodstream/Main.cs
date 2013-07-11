@@ -2,19 +2,18 @@
 using System.Threading;
 using System.Windows;
 using System.Runtime.InteropServices;
-using RGiesecke.DllExport;
+using DomainWrapper;
 //using Utils;
 
 namespace Bloodstream
 {
-    public static class EntryPoint
+    public class EntryPoint : MarshalByRefObject
     {
-        [DllExport("Main", CallingConvention = CallingConvention.Cdecl)]
-        public static int Main()
+        public EntryPoint()
         {
             try
             {
-                MessageBox.Show("Hello, from within!");
+                MessageBox.Show("Hello, from within deux!");
                 //var t = new Utils.ReadyTimer(5000);
                 //while (!t.Ready)
                 //{
@@ -24,11 +23,10 @@ namespace Bloodstream
                 //{
                 //    MessageBox.Show("Ready and waiting!");
                 //}
-                return 1;
             }
-            catch
+            catch(Exception e)
             {
-                return -1;
+                MessageBox.Show(e.ToString());
             }
         }
     }
