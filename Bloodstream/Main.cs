@@ -7,13 +7,13 @@ using DomainWrapper;
 
 namespace Bloodstream
 {
-    public class EntryPoint : MarshalByRefObject
+    public static class EntryPoint
     {
-        public EntryPoint()
+        public static int Main(params string[] args)
         {
             try
             {
-                MessageBox.Show("Hello, from within deux!");
+                MessageBox.Show("Hello, from within!\r\nThis ADID: " + AppDomain.CurrentDomain.Id);
                 //var t = new Utils.ReadyTimer(5000);
                 //while (!t.Ready)
                 //{
@@ -23,10 +23,11 @@ namespace Bloodstream
                 //{
                 //    MessageBox.Show("Ready and waiting!");
                 //}
+                return 1;
             }
-            catch(Exception e)
+            catch
             {
-                MessageBox.Show(e.ToString());
+                return -1;
             }
         }
     }
