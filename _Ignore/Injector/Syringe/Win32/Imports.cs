@@ -11,6 +11,9 @@ namespace Syringe.Win32
     /// </summary>
     public static class Imports
     {
+        [DllImport("kernel32.dll")]
+        public static extern int ResumeThread(IntPtr hThread);
+
         #region Process
 
         /// <summary>
@@ -45,21 +48,20 @@ namespace Syringe.Win32
         /// <returns>If the function succeeds, the return value is true. If the function fails, the return value is false. Call <see cref="Marshal.GetLastWin32Error"/> to get the Win32 Error.</returns>
         [DllImport("kernel32.dll", EntryPoint = "CreateProcessW", SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
-        public static extern bool CreateProcess(
+        public static extern bool CreateProcessW(
             [MarshalAs(UnmanagedType.LPWStr)]
             string lpApplicationName,
+            [MarshalAs(UnmanagedType.LPWStr)]
             string lpCommandLine,
             IntPtr lpProcessAttributes,
             IntPtr lpThreadAttributes,
             bool bInheritHandles,
             ProcessCreationFlags dwCreationFlags,
             IntPtr lpEnvironment,
+            [MarshalAs(UnmanagedType.LPWStr)]
             string lpCurrentDirectory,
             ref STARTUPINFO lpStartupInfo,
             out PROCESS_INFORMATION lpProcessInformation);
-
-
-
         #endregion
 
         #region Module

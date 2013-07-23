@@ -1,14 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using RGiesecke.DllExport;
-using System.Runtime.InteropServices;
+﻿//#define LAUNCH_MDA
+using System;
 using System.IO;
+using System.Runtime.InteropServices;
 using System.Windows;
 using System.Diagnostics;
+using RGiesecke.DllExport;
+using System.Threading;
 using System.Reflection;
+using System.Linq;
 
 namespace DomainWrapper
 {
@@ -16,43 +15,51 @@ namespace DomainWrapper
     {
         const string APP_NAME = "Bloodstream";
 
-        [StructLayout(LayoutKind.Sequential)]
-        public struct TransferPathStruct
+        public static string basePath { get; private set; }
+
+        [DllExport]
+        //public static unsafe int Start(IntPtr* pPath)
+        public static int Init(IntPtr ppPath)
         {
-            public IntPtr pPath;
+#if LAUNCH_MDA
+            System.Diagnostics.Debugger.Launch();
+#endif
+
+            basePath = Marshal.PtrToStringUni(Marshal.ReadIntPtr(ppPath));
+            Trace.Assert(Directory.Exists(basePath));
+
+            return -1;
         }
 
-        [DllExport("Start", CallingConvention = CallingConvention.Cdecl)]
-        public static int Start(TransferPathStruct tps)
+        [DllExport]
+        public static void Host()
         {
-            var path = Marshal.PtrToStringUni(tps.pPath + 4);
+#if LAUNCH_MDA
+            System.Diagnostics.Debugger.Break();
+#endif
 
-            Trace.Assert(Directory.Exists(path));
-
-            AppDomain newDomain = null;
             try
             {
-                var setupInfo = new AppDomainSetup() { ApplicationBase = path, PrivateBinPath = path };
-                newDomain = AppDomain.CreateDomain(APP_NAME, AppDomain.CurrentDomain.Evidence, setupInfo);
+                using (var host = new PathedDomainHost(APP_NAME, basePath))
+                {
+                    host.Execute();
+                }
+                //var asm_bytes = File.ReadAllBytes(_dllPath);
 
-                MessageBox.Show("This ADID: " + AppDomain.CurrentDomain.Id);
+                //var args = new Object[] {
+                //    new String[] {
+                //        path
+                //    }
+                //};
 
-                var dllPath = Path.Combine(path, Path.ChangeExtension(APP_NAME, "exe"));
-
-                newDomain.ExecuteAssembly(dllPath);
+                //var asm = Assembly.Load(asm_bytes);
+                //return Convert.ToInt32(asm.EntryPoint.Invoke(null, args));
             }
             catch (Exception e)
             {
                 Trace.TraceError(e.ToString());
                 MessageBox.Show(e.ToString());
             }
-            finally
-            {
-                if (newDomain != null)
-                    AppDomain.Unload(newDomain);
-            }
-
-            return 0;
         }
     }
 }

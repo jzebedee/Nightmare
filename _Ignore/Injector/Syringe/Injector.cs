@@ -187,15 +187,11 @@ namespace Syringe
                     throw new Exception("Code executed properly, but unable to get an appropriate module handle, possible Win32Exception", new Win32Exception(Marshal.GetLastWin32Error()));
 
                 // iterate modules in target process to find our newly injected module
-                ProcessModule modFound = null;
-                foreach (ProcessModule mod in _process.Modules)
-                {
-                    if (mod.ModuleName == libName)
-                    {
-                        modFound = mod;
-                        break;
-                    }
-                }
+                ProcessModule modFound =
+                    (from ProcessModule mod in _process.Modules
+                     where mod.ModuleName == libName
+                     select mod).SingleOrDefault();
+
                 if (modFound == null)
                     throw new Exception("Injected module could not be found within the target process!");
 

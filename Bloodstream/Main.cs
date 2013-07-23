@@ -2,7 +2,7 @@
 using System.Threading;
 using System.Windows;
 using System.Runtime.InteropServices;
-using DomainWrapper;
+using System.Diagnostics;
 //using Utils;
 
 namespace Bloodstream
@@ -13,7 +13,10 @@ namespace Bloodstream
         {
             try
             {
-                MessageBox.Show("Hello, from within!\r\nThis ADID: " + AppDomain.CurrentDomain.Id);
+                MessageBox.Show("[Inner] Hello, from within!\r\nThis ADID: " + AppDomain.CurrentDomain.Id);
+
+                var imp = new GreyMagic.InProcessMemoryReader(System.Diagnostics.Process.GetCurrentProcess());
+                MessageBox.Show(imp.ImageBase.ToString());
                 //var t = new Utils.ReadyTimer(5000);
                 //while (!t.Ready)
                 //{
@@ -25,8 +28,10 @@ namespace Bloodstream
                 //}
                 return 1;
             }
-            catch
+            catch (Exception e)
             {
+                Trace.TraceError(e.ToString());
+                MessageBox.Show("[InnerEx] " + e.ToString());
                 return -1;
             }
         }

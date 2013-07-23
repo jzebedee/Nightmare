@@ -55,7 +55,7 @@ namespace Syringe
                     int size = 0;
 
                     CustomMarshalAsAttribute attr = (CustomMarshalAsAttribute)attribute;
-                    string val = (string)field.GetValue(o);
+                    string val = (string)field.GetValue(o) + '\0';
 
                     switch (attr.Value)
                     {
@@ -69,7 +69,7 @@ namespace Syringe
                             throw new NotSupportedException("Operation not yet supported by CustomMarshaller");
                     }
 
-                    objectSize += size + 1;
+                    objectSize += size;
                 }
             }
             return objectSize;
@@ -102,7 +102,7 @@ namespace Syringe
 
             // iterate through all struct fields, handling customs, and using Marshal.StructToPtr for others
             uint extraDataOffset = 0;
-            uint structBase = (uint)ptr.ToInt32();
+            uint structBase = (uint)ptr;
             uint structSize = (uint)Marshal.SizeOf(structure);
 
             foreach (FieldInfo field in structure.GetType().GetFields(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance))
@@ -116,10 +116,10 @@ namespace Syringe
                     switch (attr.Value)
                     {
                         case CustomUnmanagedType.LPStr:
-                            bytes = Encoding.ASCII.GetBytes(val);
+                            bytes = Encoding.ASCII.GetBytes(val+'\0');
                             break;
                         case CustomUnmanagedType.LPWStr:
-                            bytes = Encoding.Unicode.GetBytes(val);
+                            bytes = Encoding.Unicode.GetBytes(val + '\0');
                             break;
                         default:
                             throw new NotSupportedException("Operation not yet supported");
@@ -127,13 +127,9 @@ namespace Syringe
                     uint dataLoc = structBase + structSize + extraDataOffset;
                     Marshal.WriteIntPtr(new IntPtr(fieldLoc), new IntPtr(dataLoc));
                     // write the raw bytes to dataLoc
-                    for (uint i = 0; i <= bytes.Length; i++, extraDataOffset++)
+                    for (uint i = 0; i < bytes.Length; i++, extraDataOffset++)
                     {
-                        byte payload;
-                        if (i == bytes.Length)
-                            payload = (byte)'\0';
-                        else
-                            payload = bytes[i];
+                        byte payload = bytes[i];
                         Marshal.WriteByte(new IntPtr(dataLoc + i), payload);
                     }
                 }
@@ -217,14 +213,14 @@ namespace Syringe
             if (!IsCustomMarshalType(structureType)) // not CustomMarshalType - don't need to / can't rebase
                 return;
 
-            int addressDiff = targetAddress.ToInt32() - baseAddress.ToInt32();
+            IntPtr addressDiff = IntPtr.Subtract(targetAddress, baseAddress.ToInt32());
             foreach (FieldInfo field in structureType.GetFields(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance))
             {
                 if (field.IsDefined(typeof(CustomMarshalAsAttribute), true))
                 {
                     IntPtr fieldAddr = new IntPtr(baseAddress.ToInt32() + Marshal.OffsetOf(structureType, field.Name).ToInt32());
                     IntPtr current = Marshal.ReadIntPtr(fieldAddr);
-                    IntPtr newLoc = new IntPtr(current.ToInt32() + addressDiff);
+                    IntPtr newLoc = IntPtr.Add(current, addressDiff.ToInt32());
                     Marshal.WriteIntPtr(fieldAddr, newLoc);
                 }
             }
