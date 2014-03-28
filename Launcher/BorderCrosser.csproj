@@ -115,24 +115,6 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Bloodstream\Bloodstream.csproj">
-      <Project>{8561a138-5d60-4d98-9c5f-921ff8e56839}</Project>
-      <Name>Bloodstream</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\DomainWrapper\DomainWrapper.csproj">
-      <Project>{ca49e5b4-af6a-4795-8dec-d341673c3c5e}</Project>
-      <Name>DomainWrapper</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Utils\Utils.csproj">
-      <Project>{6BD1FBB0-6CE3-459C-A3B5-EB402CABC0CA}</Project>
-      <Name>Utils</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\_Ignore\Injector\Syringe\Syringe.csproj">
-      <Project>{3e3a04b3-9347-4395-a22a-c49c9b38f83c}</Project>
-      <Name>Syringe</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0,Profile=Client">
       <Visible>False</Visible>
       <ProductName>Microsoft .NET Framework 4 Client Profile %28x86 and x64%29</ProductName>
@@ -157,6 +139,12 @@
   <ItemGroup>
     <None Include="app.config" />
     <None Include="Nightmare.snk" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\_Ignore\GreyMagic\GreyMagic\GreyMagic.csproj">
+      <Project>{29bee34e-8d6a-47bf-96fa-aba46f6e9b66}</Project>
+      <Name>GreyMagic</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

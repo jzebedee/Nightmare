@@ -91,7 +91,7 @@
   <ItemGroup>
     <ProjectReference Include="..\fasmdll_managed\fasmdll_managed.vcxproj">
       <Project>{4756cf18-2091-446f-a79d-9e521611deb5}</Project>
-      <Name>fasmdll_managed %28Visual Studio 2010%29</Name>
+      <Name>fasmdll_managed</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

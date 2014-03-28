@@ -12,7 +12,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		Nightmare.snk = Nightmare.snk
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Launcher", "Launcher\Launcher.csproj", "{EB8EAC91-3827-4689-85F0-A0B7EA8A0666}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BorderCrosser", "Launcher\BorderCrosser.csproj", "{EB8EAC91-3827-4689-85F0-A0B7EA8A0666}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Syringe", "_Ignore\Injector\Syringe\Syringe.csproj", "{3E3A04B3-9347-4395-A22A-C49C9B38F83C}"
 EndProject
