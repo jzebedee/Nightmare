@@ -4,7 +4,6 @@ using System.IO;
 using System.Runtime.InteropServices;
 using System.Windows;
 using System.Diagnostics;
-using RGiesecke.DllExport;
 using System.Threading;
 using System.Reflection;
 using System.Linq;
@@ -13,7 +12,7 @@ namespace DomainWrapper
 {
     public static class Loader
     {
-        const string APP_NAME = "Bloodstream";
+        const string APP_NAME = "Nightmare";
 
         public static string basePath { get; private set; }
 
